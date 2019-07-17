@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+    
+    <named-query name="PessoaFuncionario.findAll">
+        <query>
+            SELECT c FROM PessoaFuncionario c
+        </query>
+    </named-query>        
+       
+    <entity name="PessoaFuncionario" class="net.cartola.model.PessoaFuncionario" access="PROPERTY" metadata-complete="true">
+             
+        <table name="pess_func"/>
+    
+        <attributes>   
+            
+            <basic name="dataEmissRg">
+                <temporal>DATE</temporal>
+                <column name="emis_rg"/>                    
+            </basic>
+            
+            <basic name="cnh">               
+                <column name="cnh"/>                    
+            </basic>
+            
+            <basic name="dataAdmissao">
+                <temporal>DATE</temporal>
+                <column name="dataAdmissao"/>                    
+            </basic>
+            
+             <basic name="salarioMensal">               
+                <column name="sala_mens" precision="13" scale="6" nullable="false" column-definition="Numeric(13,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="horasDiario">               
+                <column name="hora_diar" precision="13" scale="6" nullable="false" column-definition="Numeric(13,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="horasSemanal">               
+                <column name="hora_mens" precision="13" scale="6" nullable="false" column-definition="Numeric(13,4) default '0.00'"/>
+            </basic>            
+            
+            <basic name="gestor">
+                <column name="gest"/>                    
+            </basic>
+                              
+           
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+
+           
+    <entity name="Conciliacao" class="net.cartola.model.Conciliacao" access="PROPERTY" metadata-complete="true">
+        
+        <table name="conc"/>        
+                     
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="conc_id"/>
+            </id>
+            
+            <basic name="naturezaLancamento">
+                <column name="natu_lanc"/>
+            </basic>
+            
+            <basic name="tpComplementoLancamento">
+                <column name="tp_comp_lanc"/>
+            </basic>
+            
+            <basic name="ComplementoLancamento">
+                <column name="comp_lanc"/>
+            </basic>
+            
+            <basic name="cpmf">
+                <column name="cpmf"/>
+            </basic>
+            
+            <basic name="data">
+                <temporal>DATE</temporal>
+                <column name="data_cont"/>
+            </basic>
+            
+            <basic name="dataLancamento">
+                <temporal>DATE</temporal>
+                <column name="data_lanc"/>
+            </basic>
+            
+            <basic name="valorLancamento">
+                <column name="valo_lanc"/>
+            </basic>
+            
+            <basic name="tipoLancamento">
+                <column name="tp_lanc"/>
+            </basic>
+            
+            <basic name="categoriaLancamento">
+                <column name="cate_lanc"/>
+            </basic>
+            
+            <basic name="historico">
+                <column name="hist"/>
+            </basic>
+            
+            <basic name="numeroDocumento">
+                <column name="num_doc"/>
+            </basic>            
+                           
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">    
+    
+    <entity name="PessoaCadastro" class="net.cartola.model.PessoaCadastro" access="PROPERTY" metadata-complete="true">
+        <named-query name="PessoaCadastro.findAll">
+            <query>
+                SELECT p FROM PessoaCadastro p
+            </query>
+        </named-query>
+        
+        <description>CADASTRO</description>
+        <table name="pess_cada">
+            <unique-constraint name="unk_pess_cada_cpf_cnpj">
+                <column-name>cpf_cnpj</column-name>
+            </unique-constraint>
+            <unique-constraint name="unk_pess_cada_rg_ie">
+                <column-name>rg_ie</column-name>
+            </unique-constraint>
+        </table>
+        
+        
+        <attributes>
+            
+            <!--id name="id">
+                <column name="pess_id" />
+            </id-->
+           
+            <basic name="cpfCnpj">
+                <column name="cpf_cnpj" unique="true" length="14"/>
+            </basic>
+            
+            <basic name="rgIe">
+                <column name="rg_ie" length="29"/>
+            </basic>
+            
+            <transient name="cpfCnpjString"/>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

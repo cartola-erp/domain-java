@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+     
+    <named-query name="ModoPagamento.findAll">
+        <query>
+            SELECT f FROM ModoPagamento f
+        </query>
+    </named-query>    
+    
+    <entity name="ModoPagamento" class="net.cartola.model.ModoPagamento" access="PROPERTY" metadata-complete="true">
+        
+        <table name="modo_paga">
+            <unique-constraint name="unk_modo_pgto_desc"> 
+                <column-name>dscr</column-name>
+            </unique-constraint>
+        </table>
+              
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="modo_paga_id"/>
+            </id>  
+           
+            <basic name="formaRecebimento">
+                <enumerated>STRING</enumerated>
+                <column name="form_rece" length="30" nullable="false" column-definition="character varying(30) default 'DINHEIRO_A_VISTA'"/>
+            </basic>
+           
+            <transient name="formaRecebimentoString"/>
+           
+            <basic name="descricao">
+                <column name="dscr" nullable="false" length="255"/>
+            </basic>            
+            
+            <basic name="codigoPagamentoNfe">
+                <column name="cod_paga_nfe" nullable="false"/>
+            </basic>
+            
+            <transient name="codigoPagamentoNfeString"/>
+            
+            <basic name="codigoPagamentoSat">
+                <column name="cod_paga_sat" nullable="false"/>
+            </basic>
+            
+            <transient name="codigoPagamentoSatString"/>
+            
+            <basic name="ativo">
+                <column name="ativ" nullable="false"/>
+            </basic>            
+            
+            <basic name="periodoCalculoTipo">
+                <enumerated>STRING</enumerated>
+                <column name="peri_calc_tipo" length="14" nullable="false" column-definition="character varying(14) default 'DIA'"/>
+            </basic>
+            
+            <basic name="calculo">
+                <column name="calc" nullable="false" length="255"/>
+            </basic>   
+            
+            <basic name="acrescimoTipo">
+                <enumerated>STRING</enumerated>
+                <column name="acre_tipo" nullable="false" length="20" column-definition="character varying(20) default 'SEM_ACRESCIMO'"/>
+            </basic>
+            
+            <transient name="acrescimoTipoString"/>
+             
+            <basic name="acrescimoValor">
+                <column name="acre_valo" nullable="false"/>
+            </basic>   
+            
+            <basic name="acrescimoPorcentagem">
+                <column name="acre_porc" nullable="false" column-definition="Numeric(5,4) default '0.00'"/>
+            </basic> 
+                        
+            <basic name="qtdParcelas">
+                <column name="qtd_parc" nullable="false"/>
+            </basic>
+            
+            <basic name="faturamentoMinimoPermitido">
+                <column name="fatu_mini_perm" nullable="false" precision="13" scale="4" column-definition="Numeric(13,4) default '0.00'"/>
+            </basic>            
+            
+            <basic name="requerCadastro">
+                <column name="requ_cada" nullable="false"/>
+            </basic>
+            
+            <basic name="permiteGerarNota">
+                <column name="perm_gera_nota" nullable="false"/>
+            </basic>
+            
+            <basic name="permiteGerarSat">
+                <column name="perm_gera_sat" nullable="false"/>
+            </basic>
+            
+            <basic name="permiteGerarDav">
+                <column name="perm_gera_dav" nullable="false"/>
+            </basic>
+            
+            <basic name="permiteGerarCobranca">
+                <column name="perm_gera_cobr" nullable="false"/>
+            </basic>
+            
+            <basic name="permiteTef">
+                <column name="perm_tef" nullable="false"/>
+            </basic>
+            
+            <basic name="permiteCliente">
+                <column name="perm_clie" nullable="false"/>
+            </basic>
+            
+            <basic name="permiteFornecedor">
+                <column name="perm_forn" nullable="false"/>
+            </basic>
+            
+            <basic name="permitePagamentoCobranca">
+                <column name="perm_paga_cobr" nullable="false"/>
+            </basic>
+            
+            <basic name="permiteGerarUtilizarCredito">
+                <column name="perm_gera_util_cred" nullable="false"/>
+            </basic>
+            
+            <basic name="exigeNomeComprador">
+                <column name="exig_nome_comp" nullable="false"/>
+            </basic>
+           
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

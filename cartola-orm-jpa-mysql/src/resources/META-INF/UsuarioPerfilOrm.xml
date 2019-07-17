@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+
+    <entity name="UsuarioPerfil" class="net.cartola.model.UsuarioPerfil" access="PROPERTY" metadata-complete="true">
+        <named-query name="UsuarioPerfil.findAll">
+            <query>SELECT p FROM UsuarioPerfil p</query>
+        </named-query>
+        
+        <table name="usua_perf">
+            <unique-constraint name="unk_usua_perf_usua_perf">
+                <column-name>usua_id</column-name>
+                <column-name>perf_id</column-name>
+            </unique-constraint>
+        </table>
+                     
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="usua_perf_id"/>
+            </id>
+            
+            <many-to-one name="usuario">
+                <join-column name="usua_id" nullable="false" updatable="false"/>
+            </many-to-one>
+            
+            <many-to-one name="perfil">
+                <join-column name="perf_id" nullable="false" updatable="false"/>
+            </many-to-one>
+                              
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>   
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

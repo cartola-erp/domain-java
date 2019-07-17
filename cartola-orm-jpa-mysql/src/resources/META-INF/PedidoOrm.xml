@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+            
+    
+    <named-query name="Pedido.findAll">
+        <query>
+            SELECT p FROM Pedido p
+        </query>
+    </named-query>
+ 
+    
+    <entity name="Pedido" class="net.cartola.model.Pedido" access="PROPERTY" metadata-complete="true">
+        
+        <table name="pedi"/>
+              
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="pedi_id"/>
+            </id>
+            
+            <many-to-one name="transacaoComercial" field="transacaoComercial" target-entity="net.cartola.model.TransacaoComercial" fetch ="EAGER">
+                <join-column name="tran_id"  nullable="false"/>
+            </many-to-one>
+            
+            <basic name="pedidoStatus">
+                <enumerated>STRING</enumerated>
+                <column name="pedi_stat" length="14" nullable="false" columnDefinition = "character varying(14) default 'ABERTO'"/> 
+            </basic>
+            
+            <many-to-one name="vendedor" field="vendedor" target-entity="net.cartola.model.Pessoa" fetch ="EAGER">
+                <join-column name="vend_id"  nullable="false"/>
+            </many-to-one>
+            
+            <basic name="vendedor">
+                <column name="vend_id"/>
+            </basic>
+            
+            <basic name="vendedorNome">
+                <column name="vend_nome" length="255"/>
+            </basic>
+            
+            <basic name="valorItens">
+                <column name="valo_iten" precision="13" scale="4" nullable="false" column-definition="Numeric(13,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="valorFrete">
+                <column name="valo_fret" precision="13" scale="4" nullable="false" column-definition="Numeric(13,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="descontoSobre">
+                <enumerated>STRING</enumerated>
+                <column name="desc_sobr" length="30" nullable="false" columnDefinition = "character varying(30) default 'VALOR_TOTAL'"/> 
+            </basic>
+            
+            <basic name="descontoTipo">
+                <enumerated>STRING</enumerated>
+                <column name="desc_tipo" length="11" nullable="false" columnDefinition = "character varying(11) default 'VALOR'"/> 
+            </basic>
+            
+            <basic name="descontoValor">                
+                <column name="desc_valo" precision="13" scale="4" nullable="false" columnDefinition = "Numeric(13,4) default '0.00'"/> 
+            </basic>
+            
+            <basic name="descontoPorcentagem">                
+                <column name="desc_perc" precision="5" scale="4" nullable="false" columnDefinition = "Numeric(5,4) default '0.00'"/> 
+            </basic>
+            
+            <basic name="valorTotal">                
+                <column name="valo_tota" precision="13" scale="4" nullable="false" columnDefinition = "Numeric(13,4) default '0.00'"/> 
+            </basic>
+            
+            <basic name="obs">
+                <column name="obs"/>
+            </basic>
+            
+            <one-to-many mapped-by="pedido" name="pedidoItens"/>
+            <one-to-many mapped-by="pedido" name="pedidoPagamentos"/>
+            <one-to-many mapped-by="pedido" name="movimentos"/>
+            
+            <transient name="pedidoString"/>
+                        
+<!--            <many-to-one name="criadoPor">
+                <join-column name="cria_por_id"/>                    
+            </many-to-one>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <many-to-one name="alteradoPor">
+                <join-column name="alte_por_id"/>                    
+            </many-to-one> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>-->
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

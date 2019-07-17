@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+
+    <named-query name="Projeto.findAll">
+        <query>SELECT p FROM Projeto p</query>
+    </named-query>
+    
+    <entity name="Projeto" class="net.cartola.model.Projeto" access="PROPERTY" metadata-complete="true">
+        
+        <table name="logi_orde_sepa_item">
+            <unique-constraint name="unk_proj_nome">
+                <column-name>nome</column-name>
+            </unique-constraint>
+        </table>
+                     
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="proj_id"/>
+            </id>
+            
+            <many-to-one name="pessoaCadastro">
+                <join-column name="pess_cada_id" nullable="false"/>
+            </many-to-one>
+            
+            <basic name="nome">
+                <column name="nome" nullable="false"/>
+            </basic>
+            
+            <basic name="objetivos">
+                <column name="obje" nullable="false"/>
+            </basic>
+            
+            <basic name="inicio">
+                <temporal>DATE</temporal>
+                <column name="inic" nullable="false"/>
+            </basic>
+            
+            <basic name="termino">
+                <temporal>DATE</temporal>
+                <column name="term" nullable="false"/>
+            </basic>
+            
+            <basic name="concluido">
+                <column name="conc" precision="5" scale="4"  nullable="false"/>
+            </basic>
+                  
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

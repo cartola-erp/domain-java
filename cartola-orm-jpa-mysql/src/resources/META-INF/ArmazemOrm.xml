@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    <named-query name="Armazem.findAll">
+        <query>
+            SELECT a FROM Armazem a
+        </query>
+    </named-query>
+    
+    <named-query name="Armazem.findByEmpresaUnidadeId">
+        <query>
+            SELECT a FROM Armazem a WHERE a.empresaUnidade.id=:id
+        </query>
+    </named-query>
+    
+    <entity name="Armazem" class="net.cartola.model.Armazem" access="PROPERTY" metadata-complete="true">
+             
+        <table name="arma"/>  
+        
+        <attributes>
+        
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="arma_id"/>
+            </id>            
+            
+            <many-to-one name="empresaUnidade" field="empresaUnidade" target-entity="net.cartola.model.EmpresaUnidade" fetch ="EAGER">
+                <join-column name="empr_unid_id" nullable="false"/>
+            </many-to-one>            
+            
+            <basic name="armazemTipo">
+                <enumerated>STRING</enumerated>
+                <column name="arma_tipo" length="20" nullable="false" />
+            </basic>
+            
+            <basic name="descricao" >
+                <column name="dscr" nullable="false"/>
+            </basic>
+            
+            <many-to-one name="centroDistribuicao" field="centroDistribuicao" target-entity="net.cartola.model.Armazem" fetch ="EAGER">
+                <join-column name="cent_dist_id"/>
+            </many-to-one>
+            
+            <basic name="diasCicloAbastecimento">
+                <column name="dias_cicl_abas" nullable="true" />
+            </basic>
+            
+            <one-to-many name="zonas" mapped-by="armazem" >
+                <cascade-all/>
+            </one-to-many>  
+                        
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

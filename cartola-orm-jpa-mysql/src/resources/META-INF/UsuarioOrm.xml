@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+
+    <named-query name="Usuario.findAll">
+        <query>
+            SELECT u FROM Usuario u
+        </query>
+    </named-query>
+    
+    <named-query name="Usuario.porLogin">
+        <query>
+            select u from Usuario u where u.login=:login
+        </query>
+    </named-query>    
+    
+    <entity name="Usuario" class="net.cartola.model.Usuario" access="PROPERTY" metadata-complete="true">
+        
+        <table name="usua"/>
+        
+        <unique-constraints>
+            <unique-constraint columns="logi" name="unk_usua_logi" />
+        </unique-constraints>
+        
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="usua_id"/>
+            </id>
+           
+            <basic name="login">
+                <column name="logi" nulltable="false" unique="true"/>                   
+            </basic>
+
+            <basic name="senha">
+                <column name="senh"/>
+            </basic> 
+            
+            <basic name="foto">
+                <column name="foto"/>
+            </basic> 
+      
+            <one-to-one name="pessoa">
+                <join-column name="pess_id"/>
+            </one-to-one>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+            
+            <basic name="versao">
+                <column name="vers"/>
+            </basic>
+            
+            <one-to-many name="perfis" mapped-by="usuario" target-entity="net.cartola.model.UsuarioPerfil">
+                <cascade-all/>
+            </one-to-many>
+            
+            <one-to-many name="compraCotacao" mapped-by="loginAssignee">
+                <cascade-all/>
+            </one-to-many>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

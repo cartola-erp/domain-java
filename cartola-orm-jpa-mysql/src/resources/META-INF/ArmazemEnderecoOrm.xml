@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    <named-query name="ArmazemEndereco.findAll">
+        <query>
+            SELECT ae FROM ArmazemEndereco ae
+        </query>
+    </named-query>
+    
+    <named-query name="ArmazemEndereco.findPorArmazemId">
+        <query>
+            SELECT ae FROM ArmazemEndereco ae WHERE ae.armazem.id=:arma_id
+        </query>
+    </named-query>
+    
+    <entity name="ArmazemEndereco" class="net.cartola.model.ArmazemEndereco" access="PROPERTY" metadata-complete="true">
+             
+        <table name="arma_ende"/>  
+        
+        <attributes>
+        
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="arma_ende_id"/>
+            </id>            
+            
+            <many-to-one name="armazem" field="armazem" target-entity="net.cartola.model.Armazem" fetch ="EAGER">
+                <join-column name="arma_id" />
+            </many-to-one>
+            
+            <many-to-one name="armazemZona" field="armazemZona" target-entity="net.cartola.model.ArmazemZona" fetch ="EAGER">
+                <join-column name="arma_zona_id" nullable = "false"/>
+            </many-to-one>
+            
+            <many-to-one name="armazemEnderecoTipo" field="armazemEnderecoTipo" target-entity="net.cartola.model.ArmazemEnderecoTipo" fetch ="EAGER">
+                <join-column name="arma_ende_tipo_id" nullable = "false"/>
+            </many-to-one>
+            
+            <basic name="curva">
+                <column name="curv" length="1" />
+            </basic>
+            
+            <basic name="bloqueado">
+                <column name="bloq" nullable="false" />
+            </basic>
+            
+            <basic name="altoValor">
+                <column name="alto_valo" nullable="false" />
+            </basic>
+            
+            <basic name="permiteEntrada">
+                <column name="perm_entr" nullable="false" />
+            </basic>
+            
+            <basic name="permiteTransferencia">
+                <column name="perm_tran" nullable="false" />
+            </basic>
+            
+            <basic name="permiteExpedicao">
+                <column name="perm_expe" nullable="false" />
+            </basic>
+            
+            <basic name="permiteInflamavel">
+                <column name="perm_infl" nullable="false" />
+            </basic>
+            
+            <basic name="bloco">
+                <column name="bloc" nullable="false" />
+            </basic>
+            
+            <basic name="rua">
+                <column name="rua" nullable="false" />
+            </basic>
+            
+            <basic name="nivel">
+                <column name="nive" nullable="false" />
+            </basic>
+            
+            <basic name="subdivisao">
+                <column name="subd" nullable="false" />
+            </basic>
+            
+            <basic name="etiqueta">
+                <column name="etiq" nullable="false" />
+            </basic>
+            
+            <basic name="prioridadeBaixa">
+                <column name="prio_baix" nullable="false" />
+            </basic>
+            
+            <basic name="ocupacaoVolume">
+                <column name="ocup_volu" nullable="false" />
+            </basic>
+            
+            <basic name="ocupacaoCarga">
+                <column name="ocup_carg" nullable="false" />
+            </basic>
+            
+            <basic name="x">
+                <column name="x"  />
+            </basic>
+            
+            <basic name="y">
+                <column name="y"  />
+            </basic>
+            
+            <basic name="z">
+                <column name="z"  />
+            </basic>            
+                        
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

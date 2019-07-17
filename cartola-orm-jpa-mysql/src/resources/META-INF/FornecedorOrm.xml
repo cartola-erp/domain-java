@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    
+    <entity name="Fornecedor" class="net.cartola.model.Fornecedor" access="PROPERTY" metadata-complete="true">
+             
+        <table name="forn"/>
+        <discriminator-value>FORNECEDOR</discriminator-value>
+    
+        <attributes>        
+          
+            <basic name="leadTimePadrao">
+                <column name="lead_time_padr"/>                    
+            </basic>            
+            
+            <one-to-many name="itens" mapped-by="fornecedor"/>   
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

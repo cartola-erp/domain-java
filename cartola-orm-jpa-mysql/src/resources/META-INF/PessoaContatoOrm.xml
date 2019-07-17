@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">    
+    
+    <entity name="PessoaContato" class="net.cartola.model.PessoaContato" access="PROPERTY" metadata-complete="true">
+        
+        <table name="pess_cont"/>
+        
+          <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="pess_cont_id" />
+            </id>           
+          
+            <many-to-one name="pessoa" field="pessoa" target-entity="net.cartola.model.Pessoa" optional="false">
+                <join-column name="pess_id" nullable="false"/>
+            </many-to-one> 
+          
+            <basic name="pessoaContatoTipo" optional="false">
+                <enumerated>STRING</enumerated>
+                <column name = "pess_cont_tipo" nullable="false" column-definition="character varying(45) default 'COMERCIAL'" length="45"/>
+            </basic>
+            
+            <transient name="pessoaContatoTipo"/>             
+            
+            <basic name="autorizadoComprar">
+                <column name="auto_comp"/>                    
+            </basic>
+            
+            <basic name="nome">
+                <column name="nome" nullable="false" length="255"/>
+            </basic>
+            
+            <basic name="apelido">
+                <column name="apel" length="255"/>
+            </basic>
+            
+            <basic name="cpf">
+                <column name="cpf" length="14"/>
+            </basic>
+            
+            <basic name="rg">
+                <column name="rg" length="12"/>
+            </basic>
+            
+            <basic name="email">
+                <column name="mail" length="255"/>
+            </basic>
+            
+            <basic name="celular">
+                <column name="celu" length="20"/>
+            </basic>
+            
+            <basic name="telefoneComercial">
+                <column name="fone_come" length="20"/>
+            </basic>
+            
+            <basic name="telefoneResidencial">
+                <column name="fone_resi" length="20"/>
+            </basic>
+            
+            <basic name="nextel">
+                <column name="nxtl" length="20"/>
+            </basic>
+            
+            <basic name="nascimento">
+                <column name="nasc" length="20"/>
+                <temporal>DATE</temporal>                
+            </basic>
+            
+            <transient name="nascimento"/>   
+            
+            <basic name="obs">
+                <column name="obs" length="255"/>
+            </basic>
+                
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

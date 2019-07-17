@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+
+   
+    <entity name="CompraSolicitacaoItem" class="net.cartola.model.CompraSolicitacaoItem" access="PROPERTY" metadata-complete="true">
+        
+        <table name="comp_soli_item"/>
+              
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="comp_soli_item_id"/>
+            </id>           
+           
+            <many-to-one name="compraSolicitacao">
+                <join-column name="comp_soli_id" nullable = "false"/>
+            </many-to-one>            
+            
+            <basic name="sequencia">
+                <column name="sequ"/>
+            </basic>
+                        
+            <many-to-one name="item">
+                <join-column name="item_id" nullable = "false"/>
+            </many-to-one>
+            
+            <many-to-one name="centroCusto">
+                <join-column name="cent_cust_id" nullable = "false"/>
+            </many-to-one> 
+                        
+            <basic name="descricao">                
+                <column name="dscr" length="255"/>
+            </basic>
+            
+            <basic name="itemTipo">  
+                <enumerated>STRING</enumerated>              
+                <column name="item_tipo" length="14"/>
+            </basic>
+            
+            <many-to-one name="itemUnidade">
+                <join-column name="item_unid_id"  nullable = "false"/>
+            </many-to-one>
+             
+            
+            <basic name="itemMarca">                
+                <column name="marc"/>
+            </basic>
+            
+            <transient name="quantidadeString"/>            
+            
+            
+            <basic name="quantidade">                
+                <column name="quan" precision="13" scale="6" nullable="false"/>
+            </basic>
+            
+            <transient name="valorUnidadeString"/>
+             
+            <basic name="valorUnidade">                
+                <column name="valo_unid" precision="13" scale="6" nullable="false"/>
+            </basic>             
+            
+            <transient name="valorTotalString"/>
+            
+            <basic name="valorTotal">                
+                <column name="valo_tota" precision="13" scale="6" nullable="false"/>
+            </basic>
+            
+            <basic name="prazoEntrega">
+                <temporal>DATE</temporal>
+                <column name="praz_entr" nullable="false"/>                    
+            </basic> 
+            
+            <basic name="codigoFornecedor">                
+                <column name="codi_forn"  nullable="false"/>
+            </basic>
+            
+            <many-to-one name="movimentoItem">
+                <join-column name="movi_item_id" nullable = "false"/>
+            </many-to-one> 
+             
+            <basic name="itemPreExistente">                
+                <column name="item_pre_exis"/>
+            </basic>
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

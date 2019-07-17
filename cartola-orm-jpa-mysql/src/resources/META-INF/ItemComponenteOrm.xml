@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+    
+    <named-query name="ItemComponente.findAll">
+        <query>SELECT c FROM ItemComponente c</query>
+    </named-query>
+    
+    <named-query name="ItemComponente.findAllByComposto">
+        <query>SELECT c FROM ItemComponente c WHERE c.composto=:composto</query>        
+    </named-query>
+                     
+               
+    <entity name="ItemComponente" class="net.cartola.model.ItemComponente" access="PROPERTY" metadata-complete="true">
+        
+        <table name="item_comp">             
+            <unique-constraint name="unk_item_cpst_cpnt">
+                <column-name>item_cpst_item_id</column-name>
+                <column-name>item_cpnt_item_id</column-name>
+            </unique-constraint>
+        </table>
+                     
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="item_comp_id"/>
+            </id>            
+            
+            <basic name="ordem">
+                <column name="orde" nullable="false" scale="3"/>
+            </basic>
+            
+            <many-to-one name="composto">
+                <join-column name="item_cpst_item_id"/>
+            </many-to-one>
+           
+           <many-to-one name="componente">
+                <join-column name="item_cpnt_item_id"/>
+            </many-to-one>
+            
+             <basic name="quantidade">
+                <column name="quan" nullable="false" precision="13" scale="4"/>
+            </basic>
+           
+           
+           
+           
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

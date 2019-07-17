@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+            
+    
+    <named-query name="Evento.findAll">
+        <query>
+            SELECT u FROM Evento u
+        </query>
+    </named-query>
+    
+    
+    <entity name="Evento" class="net.cartola.model.Evento" access="PROPERTY" metadata-complete="true">
+        
+        <table name="even"/>
+            
+              
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="even_id"/>
+            </id>
+            
+            <basic name="descricao">
+                <column name="dscr" nullable="false" length="30"/>                    
+            </basic>
+            
+            <many-to-one name="transacaoComercial" field="transacaoComercial" target-entity="net.cartola.model.TransacaoComercial" fetch ="EAGER">
+                <join-column name="tran_come_id" />
+            </many-to-one>
+            
+            <many-to-one name="local" field="local" target-entity="net.cartola.model.PessoaEndereco" fetch ="EAGER">
+                <join-column name="pess_ende_id" nullable="false"/>
+            </many-to-one>
+                        
+            <many-to-one name="anfitriao" field="anfitriao" target-entity="net.cartola.model.PessoaCadastro" fetch ="EAGER">
+                <join-column name="anfi_id" nullable="false"/>
+            </many-to-one>            
+            
+            <basic name="data">
+                <temporal>TIMESTAMP</temporal>
+                <column name="data" nullable="false"/>                    
+            </basic> 
+                        
+            <basic name="eventoTipo">
+                <enumerated>STRING</enumerated>
+                <column name="even_tipo" length="30" nullable="false"/> 
+            </basic>
+            
+            <basic name="valorFrete">
+                <column name="valo_fret" nullable="false" precision="13" scale="4"/>                    
+            </basic>
+            
+            <basic name="obs">
+                <column name="obs" />
+            </basic>
+            
+            <basic name="ativo">
+                <column name="ativ" nullable="false"/>
+            </basic>
+            
+            <one-to-many mapped-by="evento" name="pedidoItens"/>
+                                     
+            <transient name="dataEventoString"/>            
+            <transient name="dadosEvento"/>
+            <transient name="dataHorarioEventoString"/>
+            <transient name="localDataEventoString"/>
+            <transient name="incluso"/>            
+           
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

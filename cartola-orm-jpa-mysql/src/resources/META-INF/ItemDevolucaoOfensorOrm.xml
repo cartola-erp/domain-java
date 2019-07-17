@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    
+    <named-query name="ItemDevolucaoOfensor.findAll">
+        <query>
+            SELECT c FROM ItemDevolucaoOfensor c
+        </query>
+    </named-query>    
+  
+    
+    <entity name="ItemDevolucaoOfensor" class="net.cartola.model.ItemDevolucaoOfensor" access="PROPERTY" metadata-complete="true">
+             
+        <table name="item_devo_ofen">
+            <unique-constraint name="unk_item_devo_ofen_item_tipo">
+                <column-name>item_id</column-name>
+                <column-name>item_devo_ofen_tipo_id</column-name>                
+            </unique-constraint>
+        </table>
+    
+        <attributes>        
+          
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+                <column name="item_devo_ofen_id"/>
+            </id>            
+            
+            <many-to-one name="item">
+                <join-column name="item_id" />
+            </many-to-one> 
+            
+            <many-to-one name="itemDevolucaoOfensorTipo"  >
+                <join-column name="item_devo_ofen_tipo_id"/>
+            </many-to-one>
+               
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>
