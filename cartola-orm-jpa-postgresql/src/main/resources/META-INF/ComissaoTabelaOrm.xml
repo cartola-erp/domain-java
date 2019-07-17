@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    <named-query name="ComissaoTabela.findAll">
+        <query>
+           SELECT c FROM ComissaoTabela c
+        </query>
+    </named-query>
+    
+  
+    <entity name="ComissaoTabela" class="net.cartola.model.ComissaoTabela" access="PROPERTY" metadata-complete="true">
+             
+        <table name="comi_tabe"/>  
+        
+        <attributes>
+        
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_comi_tabe_id"/>
+                <column name="comi_tabe_id"/>
+            </id>            
+            
+            <basic name="descricao">
+                <column name="dscr" nullable="false"/>                    
+            </basic>
+           
+           
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

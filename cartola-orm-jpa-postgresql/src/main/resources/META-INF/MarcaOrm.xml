@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    
+    <named-query name="Marca.findAll">
+        <query>
+            SELECT c FROM Marca c
+        </query>
+    </named-query>    
+          
+    
+    <entity name="Marca" class="net.cartola.model.Marca" access="PROPERTY" metadata-complete="true">
+             
+        <table name="marc">
+            <unique-constraint name="unk_marc_nome">
+                <column-name>nome</column-name>
+            </unique-constraint>
+        </table>
+    
+        <attributes>        
+          
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_marc_id"/>
+                <column name="marc_id"/>
+            </id>     
+            
+            <basic name="nome">
+                <column name="nome" nullable="false" length="100"/>
+            </basic>
+            
+            <one-to-many name="itens" mapped-by="marca" fetch="LAZY"/>            
+         
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

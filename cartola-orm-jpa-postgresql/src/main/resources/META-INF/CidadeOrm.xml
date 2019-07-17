@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+    
+    <named-query name="Cidade.findAll">
+        <query>
+            SELECT c FROM Cidade c
+        </query>
+    </named-query>
+    
+    <named-query name="Cidade.findByUfCidade">
+        <query>
+            SELECT c FROM Cidade c WHERE c.estado.sigla = :sigla AND c.nome=:nome
+        </query>
+    </named-query>       
+    
+    <entity name="Cidade" class="net.cartola.model.Cidade" access="PROPERTY" metadata-complete="true">
+        
+        <table name="cida"/>
+        
+        <unique-constraints>
+            <unique-constraint columns="esta_id,nome" name="unk_cida_nome_esta" />
+        </unique-constraints>
+        
+        
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_cida_id"/>
+                <column name="cida_id"/>
+            </id>
+            
+            <many-to-one name="estado" field="estado" target-entity="net.cartola.model.Estado" fetch ="EAGER">
+                <join-column name="esta_id" />
+            </many-to-one>             
+           
+            <basic name="ibgeCodigo">
+                <column name="ibge_codi" nulltable="false" unique="true"/>                   
+            </basic>
+            
+            <basic name="nome">
+                <column name="nome" nulltable="false" unique="true"/>                   
+            </basic>  
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>            
+           
+                             
+        </attributes>
+    </entity>       
+   
+    
+    
+</entity-mappings>

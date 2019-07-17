@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    
+    <named-query name="Item.findAll">
+        <query>
+            SELECT i FROM Item i JOIN FETCH i.marca JOIN FETCH i.unidade JOIN FETCH i.categorias JOIN FETCH i.codigos
+        </query>
+    </named-query>
+    
+    <named-query name="Item.findById">
+        <query>
+            SELECT i FROM Item i JOIN FETCH i.marca JOIN FETCH i.unidade JOIN FETCH i.categorias JOIN FETCH i.codigos WHERE i.id=:id
+        </query>
+    </named-query>
+        
+    <entity name="ItemAvaliacao" class="net.cartola.model.ItemAvaliacao" access="PROPERTY" metadata-complete="true">
+             
+        <table name="item_aval"/>       
+    
+        <attributes>        
+          
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_item_aval_id"/>
+                <column name="item_aval_id"/>
+            </id>         
+            
+            
+            <many-to-one name="usuario">
+                <join-column name="usua_id" nullable="false" referenced-column-name="usua_id"/>
+            </many-to-one>
+            
+            <many-to-one name="item">
+                <join-column name="item_id" nullable="false"/>
+            </many-to-one>
+            
+            
+            <basic name="avaliacao">
+                <enumerated>STRING</enumerated>
+                <column name = "item_aval_tipo" nullable="false"  length="14"/>
+            </basic>                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

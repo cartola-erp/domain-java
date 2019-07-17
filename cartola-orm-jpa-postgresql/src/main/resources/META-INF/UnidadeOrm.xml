@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+
+    <named-query name="Unidade.findAll">
+        <query>
+            SELECT u FROM Unidade u
+        </query>
+    </named-query>
+    
+    <named-query name="Unidade.findBySigla">
+        <query>
+            SELECT u FROM Unidade u WHERE u.sigla=:sigla
+        </query>
+    </named-query>    
+    
+    <entity name="Unidade" class="net.cartola.model.Unidade" access="PROPERTY" metadata-complete="true">
+        
+        <table name="unid">
+            <unique-constraint name="unk_unid_sigl">
+                <column-name>sigl</column-name>
+            </unique-constraint>
+            <unique-constraint name="unk_unid_desc">
+                <column-name>dscr</column-name>
+            </unique-constraint>
+        </table>
+        
+        <attributes>            
+            <id name="id">
+                <column name="unid_id"/>
+                <generated-value strategy="SEQUENCE" generator="seq_unid_id"/>
+            </id>
+           
+            <basic name="sigla">
+                <column name="sigl" nullable="false"/>
+            </basic>
+
+            <basic name="descricao">
+                <column name="dscr" nullable="false" length="255"/>
+            </basic> 
+                
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <column name="cria_em"/>
+                <temporal>TIMESTAMP</temporal>          
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <column name="alte_em"/>
+                <temporal>TIMESTAMP</temporal>
+            </basic>
+        </attributes>
+    </entity>
+    
+</entity-mappings>

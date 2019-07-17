@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+
+    <entity name="LogisticaOrdemSeparacao" class="net.cartola.model.LogisticaOrdemSeparacao" access="PROPERTY" metadata-complete="true">
+        
+        <table name="logi_orde_sepa"/>        
+                     
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_logi_orde_sepa_id"/>
+                <column name="logi_orde_sepa_id"/>
+            </id>            
+                                   
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+    
+    <entity name="ItemDemandaLoja" class="net.cartola.model.ItemDemandaLoja" access="PROPERTY" metadata-complete="true">
+        
+        <table name="item_dema_loja"/>            
+                     
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_item_dema_loja_id"/>
+                <column name="item_dema_loja_id"/>
+            </id>            
+                        
+            <many-to-one name="itemDemandaPeriodo">
+                <join-column name="item_dema_peri_id"/>
+            </many-to-one>
+            
+            <many-to-one name="empresaUnidade">
+                <join-column name="empr_unid_id"/>
+            </many-to-one>
+           
+            <basic name="diasUteis">
+                <column name="dias_utei"/>
+            </basic>
+            
+            <one-to-many name="itens" mapped-by="itemDemandaLoja"/>
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

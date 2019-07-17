@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+            
+    
+    <entity name="TransacaoComercial" class="net.cartola.model.TransacaoComercial" access="PROPERTY" metadata-complete="true">
+        
+        <table name="tran_come"/>
+           
+              
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_tran_come_id"/>
+                <column name="tran_come_id"/>
+            </id>
+            
+            <many-to-one name="pessoa" field="pessoa" target-entity="net.cartola.model.Pessoa" fetch ="EAGER">
+                <join-column name="pess_id" />
+            </many-to-one>
+            
+            <one-to-many mapped-by="transacaoComercial" fetch="EAGER" name="eventos"/>            
+            <one-to-many mapped-by="transacaoComercial" fetch="EAGER" name="pedidos"/>
+            <one-to-many mapped-by="transacaoComercial" fetch="EAGER" name="movimentos"/>
+                        
+<!--            <many-to-one name="criadoPor" target-entity="net.cartola.model.Usuario">
+                <join-column name="cria_por_id"/>                    
+            </many-to-one>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <many-to-one name="alteradoPor" target-entity="net.cartola.model.Usuario">
+                <join-column name="alte_por_id"/>                    
+            </many-to-one> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>-->
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

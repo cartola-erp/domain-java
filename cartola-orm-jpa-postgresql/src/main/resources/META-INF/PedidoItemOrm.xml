@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+            
+    
+    <entity name="PedidoItem" class="net.cartola.model.PedidoItem" access="PROPERTY" metadata-complete="true">
+        
+        <table name="pedi_item"/>
+              
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_pedi_item_id"/>
+                <column name="pedi_item_id"/>
+            </id>
+            
+            <many-to-one name="pedido" field="pedido" target-entity="net.cartola.model.Pedido" fetch ="EAGER">
+                <join-column name="pedi_id"  nullable="false"/>
+            </many-to-one>
+            
+            <basic name="sequencia">
+                <column name="sequ" nullable="false"/>                    
+            </basic>
+            
+            <many-to-one name="item" field="item" target-entity="net.cartola.model.Item" fetch ="EAGER">
+                <join-column name="item_id"  nullable="false"/>
+            </many-to-one>
+            
+            <basic name="itemDescricao">
+                <column name="item_dscr" length="255" nullable="false"/>                    
+            </basic>
+        
+            <basic name="itemSimilaridade">
+                <column name="item_simi"/>
+            </basic>            
+                        
+            <basic name="itemQualificador">
+                <column name="item_qual"/>
+            </basic> 
+            
+            <basic name="itemComposto">
+                <column name="item_comp"/>
+            </basic> 
+            
+            <basic name="itemTipo">
+                <enumerated>STRING</enumerated>
+                <column name="item_tipo" length="14" nullable="false" column-definition="character varying(14) default 'MERCADORIA'"/> 
+            </basic>
+            
+            <many-to-one name="itemUnidade" field="itemUnidade" target-entity="net.cartola.model.Unidade" fetch ="EAGER">
+                <join-column name="item_unid_id" nullable="false"/>
+            </many-to-one> 
+            
+            <basic name="itemMarcaFornecedor">
+                <column name="item_marc_forn"/>
+            </basic> 
+            
+            <basic name="precoCusto">
+                <column name="prec_cust" precision="13" scale="6" nullable="false" column-definition="Numeric(13,6) default '0.00'"/>
+            </basic> 
+            
+            <basic name="valorBase">
+                <column name="valo_base" precision="13" scale="6" nullable="false" column-definition="Numeric(13,6) default '0.00'"/>
+            </basic>             
+            
+            <basic name="descontoTipo">
+                <enumerated>STRING</enumerated>
+                <column name="desc_tipo" length="11" nullable="false" column-definition="character varying(11) default 'VALOR'"/> 
+            </basic>
+            
+            <basic name="descontoValor">
+                <column name="desc_valo" precision="13" scale="6" nullable="false" column-definition="Numeric(13,6) default '0.00'"/>
+            </basic> 
+            
+            <basic name="descontoPorcentagem">
+                <column name="desc_porc" precision="13" scale="6" nullable="false" column-definition="Numeric(5,4) default '0.00'"/>
+            </basic> 
+            
+            <basic name="quantidade">
+                <column name="quan" precision="13" scale="6" nullable="false" column-definition="Numeric(13,4) default '0.00'"/>
+            </basic> 
+            
+            <basic name="valorUnidade">
+                <column name="valo_unid" precision="13" scale="6" nullable="false" column-definition="Numeric(13,6) default '0.00'"/>
+            </basic> 
+            
+            <basic name="valorTotal">
+                <column name="valo_tota" precision="13" scale="6" nullable="false" column-definition="Numeric(13,6) default '0.00'"/>
+            </basic> 
+                        
+            <many-to-one name="evento" field="evento" target-entity="net.cartola.model.Evento" fetch ="EAGER">
+                <join-column name="even_id"  nullable="false"/>
+            </many-to-one>
+                        
+            <basic name="eventoDescricao">
+                <column name="even_dscr" length="30"/>
+            </basic>
+            
+            <many-to-one name="eventoLocal" field="eventoLocal" target-entity="net.cartola.model.PessoaEndereco" fetch ="EAGER">
+                <join-column name="even_loca_id"  nullable="false"/>
+            </many-to-one>
+                        
+            <basic name="eventoData">
+                <temporal>TIMESTAMP</temporal>
+                <column name="even_data"/>                    
+            </basic> 
+            
+            <basic name="valorFrete">
+                <column name="valo_fret" precision="13" scale="6" nullable="false" column-definition="Numeric(13,4) default '0.00'"/>
+            </basic> 
+            
+            <transient name="desconto"/>
+            <transient name="incluso"/>
+                       
+<!--            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>-->
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

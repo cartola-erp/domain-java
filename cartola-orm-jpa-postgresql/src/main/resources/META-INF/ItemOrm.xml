@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    
+    <named-query name="Item.findAll">
+        <query>
+            SELECT i FROM Item i JOIN FETCH i.marca JOIN FETCH i.unidade JOIN FETCH i.categorias JOIN FETCH i.codigos
+        </query>
+    </named-query>
+    
+    <named-query name="Item.findById">
+        <query>
+            SELECT i FROM Item i JOIN FETCH i.marca JOIN FETCH i.unidade JOIN FETCH i.categorias JOIN FETCH i.codigos WHERE i.id=:id
+        </query>
+    </named-query>
+    
+    <named-query name="Item.findByDescricao">
+        <query>
+            SELECT i FROM Item i JOIN FETCH i.marca JOIN FETCH i.unidade JOIN FETCH i.categorias JOIN FETCH i.codigos WHERE i.descricao=:descricao
+        </query>
+    </named-query>
+    
+    <named-query name="Item.findBySimilaridade">
+        <query>
+            SELECT i FROM Item i JOIN FETCH i.marca JOIN FETCH i.unidade JOIN FETCH i.categorias JOIN FETCH i.codigos WHERE i.similaridade=:similaridade
+        </query>
+    </named-query>
+        
+    <entity name="Item" class="net.cartola.model.Item" access="PROPERTY" metadata-complete="true">
+             
+        <table name="item"/>       
+    
+        <attributes>        
+          
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_item_id"/>
+                <column name="item_id"/>
+            </id>         
+            
+            
+            <basic name="similaridade">
+                <column name="simi"/>                    
+            </basic> 
+            
+            <basic name="qualificador">
+                <column name="qual"/>                    
+            </basic>
+            
+            <basic name="empresaQuantidadeEmbalagem">
+                <column name="empr_quan_emba"/>
+            </basic>
+            
+            <transient name="similaridadeQualificador"/>
+            
+            <basic name="composto">
+                <column name="comp" nullable="false"/>                    
+            </basic>
+            
+            <basic name="ativo">
+                <column name="ativ" nullable="false"/>                    
+            </basic>
+            
+            <basic name="itemTipo">
+                <enumerated>STRING</enumerated>
+                <column name = "item_tipo" nullable="false"  length="14"/>
+            </basic>   
+            
+            <basic name="descricao">
+                <column name="dscr" nullable="false"/>                    
+            </basic>
+            
+            <many-to-one name="unidade" field="unidade" target-entity="net.cartola.model.Unidade" >
+                <join-column name="unid_id" referenced-column-name="unid_id" nullable="false"/>
+            </many-to-one>
+            
+            <many-to-one name="marca" field="marca" target-entity="net.cartola.model.Marca" >
+                <join-column name="marc_id" referenced-column-name="marc_id" nullable="false"/>
+            </many-to-one>
+            
+            <many-to-one name="fornecedor" field="fornecedor" target-entity="net.cartola.model.PessoaCadastro" >
+                <join-column name="forn_id" referenced-column-name="pess_id" nullable="false"/>
+            </many-to-one>
+            
+            <one-to-many name="comentarios">
+                <join-table name="come" >
+                    <join-column name="item_id" nullable="false"/>
+                    <inverse-join-column name="come_id"/>
+                </join-table>
+            </one-to-many>
+            
+            <one-to-many name="avaliacoes">
+                <join-table name="item_aval" >
+                    <join-column name="item_id" nullable="false"/>
+                    <inverse-join-column name="item_aval_id"/>
+                </join-table>
+            </one-to-many>
+            
+            <basic name="precoCusto">
+                <column name="prec_cust" nullable="false" precision="13" scale="4"/>
+            </basic>
+            
+            <basic name="precoVenda">
+                <column name="prec_vend" nullable="false" precision="13" scale="4" />
+            </basic>
+            
+            <basic name="margemBruta">
+                <column name="marg_brut" nullable="false" precision="5" scale="4" column-definition="Numeric(5,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="descontoMaximo">
+                <column name="desc_maxi" nullable="false" precision="5" scale="4" column-definition="Numeric(5,4) default '0.00'"/>                
+            </basic>
+            
+            <basic name="precoLocacao">
+                <column name="prec_loca" nullable="false" precision="13" scale="4" column-definition="Numeric(13,4) default '0.00'"/>                
+            </basic>
+            
+            <basic name="precoReposicao">
+                <column name="prec_repo" nullable="false" precision="13" scale="4" column-definition="Numeric(13,4) default '0.00'"/>                
+            </basic>
+            
+            <basic name="locacaoPeriodo">
+                <enumerated>STRING</enumerated>
+                <column name = "loca_peri" nullable="false" length="7" column-definition="character varying(7) default 'DIA'"/>
+            </basic>
+            
+            <basic name="estoqueMovimentacaoTipo">
+                <enumerated>STRING</enumerated>
+                <column name = "esto_movi_tipo" nullable="false" column-definition="character varying(7) default 'FAST'"/>
+            </basic>
+            
+            <basic name="movimentaFracao">
+                <column name="movi_frac" nullable="false"/>
+            </basic>
+            
+            <basic name="mercadoriaOrigem">
+                <enumerated>STRING</enumerated>
+                <column name="merc_orig" nullable="false" length="45" column-definition="character varying(45) default 'NACIONAL'"/>
+            </basic>
+            
+            <basic name="altoValor">                 
+                <column name="alto_valo" nullable="false"/>
+            </basic>
+            
+            <basic name="inflamavel">                 
+                <column name="infl" nullable="false"/>
+            </basic>
+            
+            <basic name="cmd">                 
+                <column name="cmd" precision="15" scale="6" insertable="false" updatable="false"/>
+            </basic>            
+                   
+            <basic name="pesoLiquido">                 
+                <column name="peso_liqu" precision="13" scale="4" nullable="false"/>
+            </basic>
+            
+            <basic name="pesoBruto">                 
+                <column name="peso_brut" precision="13" scale="4" nullable="false"/>
+            </basic>
+            
+            <basic name="alturaProduto">                 
+                <column name="altu_prod" />
+            </basic>
+            
+            <basic name="larguraProduto">                 
+                <column name="larg_prod" />
+            </basic>
+            
+            <basic name="profundidadeProduto">                 
+                <column name="prof_prod" />
+            </basic>
+            
+            <basic name="alturaEmbalagem">                 
+                <column name="altu_emba" />
+            </basic>
+            
+            <basic name="larguraEmbalagem">                 
+                <column name="larg_emba" />
+            </basic>
+            
+            <basic name="profundidadeEmbalagem">                 
+                <column name="prof_emba" />
+            </basic>
+            
+            <many-to-one name="embalagem" field="embalagem" target-entity="net.cartola.model.Embalagem" >
+                <join-column name="emba_id" referenced-column-name="emba_id"/>
+            </many-to-one>
+            
+            <basic name="fornecedorQuantidadeEmbalagem">                 
+                <column name="forn_quan_emba" />
+            </basic>
+            
+            <basic name="obs">                 
+                <column name="obs" />
+            </basic>
+                        
+            <many-to-many  name="categorias" field="categorias" target-entity="net.cartola.model.Categoria" >
+                <join-table name="item_cate" >
+                    <join-column name="item_id"/>
+                    <inverse-join-column name="cate_id"/>
+                </join-table>                
+            </many-to-many>            
+            
+            <one-to-many mapped-by="item" name="codigos" >
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            
+            <one-to-many mapped-by="item"  name="estoques" >
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            
+            <one-to-many mapped-by="item"  name="itemEnderecos" >
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            
+            
+            <transient name="fotos"/>
+            <transient name="unidadeString"/>
+            <transient name="marcaString"/>
+            <transient name="indicePesquisa"/>
+            
+            <many-to-one name="unidadePadrao">
+                <join-column name="item_unid_id"/>                
+            </many-to-one>
+                        
+            <basic name="devolucaoIndice">
+                <column name="devo_indi" precision="1" scale="4"/>
+            </basic>
+            
+            <basic name="devolucaoQuantidade">
+                <column name="devo_quan" precision="1" scale="4"/>
+            </basic>
+            
+             <one-to-many mapped-by="item"  name="itemDevolucoesOfensores" >
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

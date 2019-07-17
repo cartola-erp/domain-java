@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+    
+    <named-query name="EstoquePosicao.findAll">
+        <query>SELECT ep FROM EstoquePosicao ep</query>            
+    </named-query>
+
+           
+    <entity name="EstoquePosicao" class="net.cartola.model.EstoquePosicao" access="PROPERTY" metadata-complete="true">
+        
+        <table name="esto_posi"/>        
+                     
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_esto_posi_id"/>
+                <column name="esto_posi_id"/>
+            </id>
+            
+            <many-to-one name="estoque">
+                <join-column name="esto_id" nullable="false" updatable="false"/>
+            </many-to-one>
+            
+            <basic name="saldo">
+                <column name="sald" precision="13" scale="4" nullable="false" updatable="false"/>
+            </basic>
+                                    
+            <basic name="precoCusto">
+                <column name="prec_cust" precision="13" scale="4" nullable="false" updatable="false"/>
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

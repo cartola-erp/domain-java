@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">    
+    
+    <entity name="PessoaEMail" class="net.cartola.model.PessoaEMail" access="PROPERTY" metadata-complete="true">
+        
+        <table name="pess_mail"/>
+        
+        
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_pess_mail_id"/>
+                <column name="pess_mail_id" />
+            </id>
+           
+          
+            <many-to-one name="pessoa" field="pessoa" target-entity="net.cartola.model.Pessoa" fetch ="EAGER">
+                <join-column name="pess_id" referenced-column-name="pess_id" nullable="false"/>
+            </many-to-one> 
+          
+            <basic name="pessoaEMailTipo">
+                <enumerated>STRING</enumerated>
+                <column name="pess_mail_tipo" nullable="false" column-definition="character varying(10) default 'PRINCIPAL'" length="10"/>
+            </basic>
+            
+            <transient name="pessoaEMailTipo"/>             
+            
+            <basic name="recebeDocumentoFiscal">
+                <column name="rece_docu_fisc" nullable="false"/>                    
+            </basic>
+            
+            <basic name="recebePedido">
+                <column name="rece_pedi" nullable="false"/>                    
+            </basic>
+            
+            <basic name="recebeCobranca">
+                <column name="rece_cobr" nullable="false"/>                    
+            </basic>
+            
+            <basic name="email">
+                <column name="mail" nullable="false" length="255"/>                    
+            </basic>
+            
+            <basic name="obs">
+                <column name="obs"/>
+            </basic>
+                
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

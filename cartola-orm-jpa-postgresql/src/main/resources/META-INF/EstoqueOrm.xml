@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    <named-query name="Estoque.findAll">
+        <query>
+            SELECT e FROM Estoque e
+        </query>
+    </named-query>
+    
+    <named-query name="Estoque.findByItemIdEstoqueId">
+        <query>
+            SELECT e FROM Estoque e WHERE e.item.id=:itemId AND e.empresaUnidade.id=:empresaUnidadeId
+        </query>
+    </named-query>
+    
+    <entity name="Estoque" class="net.cartola.model.Estoque" access="PROPERTY" metadata-complete="true">
+             
+        <table name="esto"/>
+    
+        <attributes>
+        
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_esto_id"/>
+                <column name="esto_id"/>
+            </id>
+            
+            <many-to-one name="empresaUnidade" field="empresaUnidade" target-entity="net.cartola.model.EmpresaUnidade">
+                <join-column name="pess_cada_id"  nullable="false" updatable="false"/>
+            </many-to-one>     
+            
+            <many-to-one name="item" field="item" target-entity="net.cartola.model.Item">
+                <join-column name="item_id" referenced-column-name="item_id" nullable="false" updatable="false"/>
+            </many-to-one>
+            
+            <basic name="diasEstoqueSeguranca">
+                <column name="dias_esto_segu" scale="3" precision="0" nullable="false"/>                    
+            </basic>
+            
+            <basic name="curva">
+                <column name="curv" length="20"/>                    
+            </basic>
+            
+            <basic name="cmd">
+                <column name="cmd" precision = "13" scale = "6" column-definition="Numeric(13,6) default '0.00'"/>
+            </basic>
+            
+            <basic name="pontoPedido">
+                <column name="pont_pedi" precision = "13" scale = "4" nullable="false" column-definition="Numeric(13,4) default '0.00'"/>                    
+            </basic>
+            
+            <basic name="cotacao">
+                <column name="cota" precision = "11" scale = "4" nullable="false" column-definition="Numeric(11,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="pedido">
+                <column name="pedi" precision = "11" scale = "4" nullable="false" column-definition="Numeric(11,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="comprado">
+                <column name="comp" precision = "11" scale = "4" nullable="false" column-definition="Numeric(11,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="transito">
+                <column name="tran" precision = "11" scale = "4" nullable="false" column-definition="Numeric(11,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="expedicaoEntrada">
+                <column name="expe_entr" precision="11" scale="4"/>
+            </basic>
+            
+            <basic name="expedicaoSaida">
+                <column name="expe_said" precision="11" scale="4"/>
+            </basic>
+            
+            <basic name="garantiaAguardando">
+                <column name="gara_agua" precision = "11" scale = "4" nullable="false" column-definition="Numeric(11,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="garantiaRemetida">
+                <column name="gara_reme" precision = "11" scale = "4" nullable="false" column-definition="Numeric(11,4) default '0.00'"/>
+            </basic>
+            
+            <basic name="consignacaoRecebida">
+                <column name="cons_rece" precision = "11" scale = "4" nullable="false" column-definition="Numeric(11,4) default '0.00'"/>
+            </basic>
+            
+            <transient name="estoqueSeguranca"/>
+            
+           
+          
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

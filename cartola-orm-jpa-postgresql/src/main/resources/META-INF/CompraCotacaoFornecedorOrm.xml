@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    <named-query name="CompraCotacaoFornecedor.findByCotaEForn">
+        <query>SELECT c FROM CompraCotacaoFornecedor c WHERE c.fornecedor.id = :fornId AND c.compraCotacao.id = :cotaId</query>
+    </named-query>
+    
+    <named-query name="CompraCotacaoFornecedor.findById">
+        <query>SELECT c FROM CompraCotacaoFornecedor c WHERE c.id = :id</query>
+    </named-query>
+    
+    <named-query name="CompraCotacaoFornecedor.findByCompraCotacaoId">
+        <query>SELECT c FROM CompraCotacaoFornecedor c WHERE c.compraCotacao = :compCota</query>
+    </named-query>
+    
+    <entity name="CompraCotacaoFornecedor" class="net.cartola.model.CompraCotacaoFornecedor" access="PROPERTY" metadata-complete="true">
+             
+        <table name="comp_cota_forn"/>  
+        
+        <attributes>
+        
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_comp_cota_forn_id"/>
+                <column name="comp_cota_forn_id"/>
+            </id>            
+             
+            <many-to-one name="compraCotacao" field="compraCotacao" target-entity="net.cartola.model.CompraCotacao" fetch ="EAGER">
+                <join-column name="comp_cota_id"  nullable="false"/>
+            </many-to-one>
+            
+            <many-to-one name="fornecedor" field="fornecedor" target-entity="net.cartola.model.Fornecedor" fetch ="EAGER">
+                <join-column name="forn_id"  nullable="false"/>
+            </many-to-one>
+            
+            <basic name="classificado" >
+                <column name="clas" nullable="false"/>                    
+            </basic>           
+            
+            <one-to-many name="compraCotacaoFornecedorItem" mapped-by="compraCotacaoFornecedor"/>
+            
+            <basic name="cotacaoRespondida">
+                <column name="cota_resp" nullable="true"/>
+            </basic>
+                        
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

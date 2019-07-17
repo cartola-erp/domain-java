@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    <named-query name="CompraPedido.findAll">
+        <query>
+            SELECT c FROM CompraPedido c
+        </query>
+    </named-query>
+        
+    <entity name="CompraPedido" class="net.cartola.model.CompraPedido" access="PROPERTY" metadata-complete="true">
+             
+        <table name="comp_pedi">
+            <unique-constraint name="unk_comp_pedi_id">
+                <column-name>comp_pedi_id</column-name>               
+            </unique-constraint>
+        </table>
+        
+        <attributes>
+        
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_comp_pedi_id"/>
+                <column name="comp_pedi_id"/>
+            </id>  
+            
+            <many-to-one name="fornecedor">
+                <join-column name="forn_id" nullable="false"/>                
+            </many-to-one>
+            
+            <many-to-one name="destinatario">
+                <join-column name="dest_id" nullable="false"/>                
+            </many-to-one>
+                        
+            <many-to-one name="solicitante">
+                <join-column name="soli_id"/>                
+            </many-to-one>
+            
+            
+            <basic name="descricao">
+                <column name="dscr"/>
+            </basic>
+            
+            <basic name="prazoEntrega">
+                <temporal>DATE</temporal>
+                <column name="praz_entr" nullable="false"/>
+            </basic>            
+            
+            <basic name="freteTipo">
+                <enumerated>STRING</enumerated>
+                <column name="fret_tipo" length="3" nullable="false"/>
+            </basic>
+            
+            <basic name="fretePago">                
+                <column name="fret_pago" nullable="false"/>
+            </basic>
+            
+            <basic name="compraPedidoSituacao">
+                <enumerated>STRING</enumerated>
+                <column name="comp_pedi_situ" length="30" nullable="false"/>
+            </basic>
+            
+            <basic name="compraPedidoTipo">
+                <enumerated>STRING</enumerated>
+                <column name="comp_pedi_tipo" length="30" nullable="false"/>
+            </basic>
+            
+            <basic name="aprovado">
+                <column name="apro"/>
+            </basic>
+            
+            <many-to-one name="aprovadorPor">
+                <join-column name="apro_por_id"/>
+            </many-to-one>
+            
+            <many-to-one name="transportador">
+                <join-column name="tran_id"/>
+            </many-to-one>
+            
+            <many-to-one name="terceiro">
+                <join-column name="terc_id"/>
+            </many-to-one>
+            
+            <basic name="valorProdutos" >
+                <column name="valo_prod" precision="13" scale="4" nullable="false"/>
+            </basic>
+            
+            <basic name="valorEntregue" >
+                <column name="valo_entr" precision="13" scale="4" nullable="false"/>
+            </basic>
+            
+            <basic name="itensQuantidadePedido" >
+                <column name="iten_quan_pedi" nullable="false"/>
+            </basic>
+            
+            <basic name="itensQuantidadeEntregue" >
+                <column name="iten_quan_entr" nullable="false"/>
+            </basic>
+            
+            <basic name="descontoSobre" >
+                <enumerated>STRING</enumerated>
+                <column name="desc_sobr" length="30" nullable="false"/>
+            </basic>
+            
+            <basic name="descontoTipo" >
+                <enumerated>STRING</enumerated>
+                <column name="desc_tipo" length="11"  nullable="false"/>
+            </basic>
+            
+            <basic name="descontoValor" >
+                <column name="desc_valo" precision="13" scale="4" nullable="false"/>
+            </basic>
+                        
+            <basic name="descontoPorcentagem" >
+                <column name="desc_porc" precision="5" scale="4" nullable="false"/>
+            </basic>
+            
+            <basic name="valorTotal" >
+                <column name="valo_tota" precision="13" scale="4" nullable="false"/>
+            </basic>
+            
+            <basic name="obs" >
+                <column name="obs"/>
+            </basic>
+            
+            <one-to-many name="itens" mapped-by="compraPedido"/>            
+            <one-to-many name="formasPagamentos" mapped-by="compraPedido"/>
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

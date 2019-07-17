@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+        
+    <named-query name="Embalagem.findAll">
+        <query>
+            SELECT e FROM Embalagem e
+        </query>
+    </named-query>    
+    
+    <entity name="Embalagem" class="net.cartola.model.Embalagem" access="PROPERTY" metadata-complete="true">
+             
+        <table name="emba"/>  
+        
+        <attributes>
+        
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_emba_id"/>
+                <column name="emba_id"/>
+            </id>
+            
+            <basic name="descricao">
+                <column name="dscr" nullable="false" length="255"/>
+            </basic>
+                                    
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

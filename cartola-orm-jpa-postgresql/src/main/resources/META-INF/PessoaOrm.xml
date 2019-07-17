@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">    
+    
+    <entity name="Pessoa" class="net.cartola.model.Pessoa" access="PROPERTY" metadata-complete="true">
+        
+        <table name="pess"/>
+        <inheritance strategy="JOINED"/>
+        <discriminator-column name = "cada_tipo"/>
+                
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_pess_cont_id" />
+                <sequence-generator name="seq_pess_id" sequence-name="seq_pess_id" allocation-size="1"/>
+                <column name="pess_id" />
+            </id>           
+          
+            <basic name="cadastroTipo">
+                <enumerated>STRING</enumerated>
+                <column name = "cada_tipo" nullable="false" />
+            </basic>            
+           
+            <many-to-one name="pessoaGrupo" field="pessoaGrupo" target-entity="net.cartola.model.PessoaGrupo" fetch ="EAGER">
+                <join-column name="pess_grup_id" referenced-column-name="pess_grup_id" nullable="false"/>
+            </many-to-one> 
+            
+            <basic name="pessoaTipo">
+                <enumerated>STRING</enumerated>
+                <column name = "pess_tipo" nullable="false" length="45" column-definition="character varying(45) default 'FISICA'" />
+            </basic>
+            
+            <basic name="nomeRazaoSocial" >
+                <column name="nome_raza_soci" nullable="false" length="255" />                
+            </basic>
+            
+            <basic name="nomeRazaoSocial" >
+                <column name="nome_raza_soci" nullable="false" length="255" />                
+            </basic>
+            
+            <basic name="apelidoNomeFantasia" >
+                <column name="apel_nome_fant" length="255" />                
+            </basic>
+            
+            <basic name="nascimentoFudacao">
+                <temporal>DATE</temporal>
+                <column name="nasc_fund"/>                    
+            </basic> 
+            
+            
+            <transient name="nascimentoFudacaoString"/>
+            
+            <basic name="obs">
+                <column name="obs" length="255" />
+            </basic>
+            
+            <basic name="cliente" >
+                <column name="clie"/>
+            </basic>
+            
+            <basic name="fornecedor" >
+                <column name="forn"/>
+            </basic>
+            
+            <basic name="anfitriao" >
+                <column name="anfi"/>
+            </basic>
+            
+            <basic name="considerarFaturamentoMinimo" >
+                <column name="cons_fat_min"/>
+            </basic>
+            
+            <basic name="ativo" >
+                <column name="ativ"/>
+            </basic>
+            
+            <one-to-many name ="enderecos" mapped-by="pessoa" />
+            <one-to-many name ="contatos" mapped-by="pessoa" />
+            <one-to-many name ="telefones" mapped-by="pessoa" />
+            <one-to-many name ="emails" mapped-by="pessoa" />
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

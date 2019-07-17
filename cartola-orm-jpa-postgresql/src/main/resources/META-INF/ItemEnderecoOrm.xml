@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    
+    <named-query name="ItemEndereco.findAll">
+        <query>
+            SELECT c FROM ItemEndereco c
+        </query>
+    </named-query>    
+    
+    <named-query name="ItemEndereco.findByItemIdArmazemId">
+        <query>
+            SELECT i FROM ItemEndereco i WHERE i.item.id=:itemId AND i.armazemEndereco.armazem.id=:armazemId
+        </query>
+    </named-query>   
+  
+    
+    <entity name="ItemEndereco" class="net.cartola.model.ItemEndereco" access="PROPERTY" metadata-complete="true">
+             
+        <table name="item_ende"/>
+    
+        <attributes>        
+          
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_item_ende_id"/>
+                <column name="item_ende_id"/>
+            </id>            
+            
+            <many-to-one name="item" field="item" target-entity="net.cartola.model.Item" >
+                <join-column name="item_id" referenced-column-name="item_id" nullable="false" />
+            </many-to-one>  
+            
+            <many-to-one name="armazemEndereco" field="armazemEndereco" target-entity="net.cartola.model.ArmazemEndereco" >
+                <join-column name="arma_ende_id" nullable="false" />
+            </many-to-one>
+            
+            <many-to-one name="unidade" field="unidade" target-entity="net.cartola.model.Unidade" >
+                <join-column name="unid_id"  nullable="false" />
+            </many-to-one>
+            
+            <basic name="entrada">
+                <column name="entr" precision="11" scale="4" nullable="false"/>
+            </basic>
+            
+            <basic name="efetiva">
+                <column name="efet" precision="11" scale="4" nullable="false" column-definition="Numeric(11,4) default '0.00'"/>
+            </basic>
+            
+             <basic name="saida">
+                <column name="said" precision="11" scale="4" nullable="false" column-definition="Numeric(11,4) default '0.00'"/>
+            </basic>
+            
+             <basic name="validade">
+                <temporal>DATE</temporal>
+                <column name="vali"/>                    
+            </basic>                                                 
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

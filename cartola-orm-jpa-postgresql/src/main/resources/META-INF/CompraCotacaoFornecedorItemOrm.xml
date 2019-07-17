@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+    
+    <named-query name="CompraCotacaoFornecedorItem.findById">
+        <query>SELECT c FROM CompraCotacaoFornecedorItem c WHERE c.id = :id</query>
+    </named-query>
+    
+    <entity name="CompraCotacaoFornecedorItem" class="net.cartola.model.CompraCotacaoFornecedorItem" access="PROPERTY" metadata-complete="true">
+             
+        <table name="comp_cota_forn_item"/>  
+        
+        <attributes>
+        
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_comp_cota_forn_item_id"/>
+                <column name="comp_cota_forn_item_id"/>
+            </id>            
+             
+            <many-to-one name="compraCotacaoItem" field="compraCotacaoItem" target-entity="net.cartola.model.CompraCotacaoItem" fetch ="EAGER">
+                <join-column name="comp_cota_item_id" />
+            </many-to-one>
+            
+            
+            <many-to-one name="compraCotacaoFornecedor" field="compraCotacaoFornecedor" target-entity="net.cartola.model.CompraCotacaoFornecedor" fetch ="EAGER">
+                <join-column name="comp_cota_forn_id" />
+            </many-to-one>
+            
+            <basic name="quantidadeDisponivel">
+                <column name="quan_disp" precision="13" scale="6" nullable="false" />                
+            </basic>
+            
+            <basic name="preco">
+                <column name="prec" precision="13" scale="6" nullable="false" />                
+            </basic>
+            
+            <basic name="previsaoEntrega">
+                <temporal>DATE</temporal>
+                <column name="prev_entr"/>                    
+            </basic>  
+            
+            <basic name="classificado">
+                <column name="clas" nullable="false" />                
+            </basic>
+            
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

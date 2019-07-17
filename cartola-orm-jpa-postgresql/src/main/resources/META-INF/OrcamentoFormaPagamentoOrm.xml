@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+    
+    <named-query name="OrcamentoFormaPagamento.findAll">
+        <query>SELECT c FROM OrcamentoFormaPagamento c</query>            
+    </named-query>
+
+           
+    <entity name="OrcamentoFormaPagamento" class="net.cartola.model.OrcamentoFormaPagamento" access="PROPERTY" metadata-complete="true">
+        
+        <table name="orca_form_paga"/>        
+                     
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_orca_form_paga_id"/>
+                <column name="orca_form_paga_id"/>
+            </id>
+                        
+            <many-to-one name="orcamento">
+                <join-column name="orca_id" nullable="false"/>
+            </many-to-one>
+            
+            <many-to-one name="formaPagamento">
+                <join-column name="form_paga_id" nullable="false"/>
+            </many-to-one>
+            
+            <basic name="valor">
+                <column name="valo" nullable="false"/>
+            </basic>
+                     
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

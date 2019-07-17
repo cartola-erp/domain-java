@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">  
+    
+    <named-query name="Comentario.findAll">
+        <query>
+            SELECT c FROM Comentario c
+        </query>
+    </named-query>
+    
+    <named-query name="Comentario.findAllByItem">
+        <query>
+            SELECT c FROM Comentario c WHERE c.item=:item
+        </query>
+    </named-query>
+    
+    <named-query name="Comentario.findAllByUsuario">
+        <query>
+            SELECT c FROM Comentario c WHERE c.usuario= :usuario
+        </query>
+    </named-query>
+    
+    
+    
+    <entity name="Comentario" class="net.cartola.model.Comentario" access="PROPERTY" metadata-complete="true">
+             
+        <table name="come"/>  
+        
+        <attributes>
+        
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_come_id"/>
+                <column name="come_id"/>
+            </id>            
+            
+            
+            <many-to-one name="item">
+                <join-column name="item_id" nullable="false"/>
+            </many-to-one>
+            
+            <many-to-one name="usuario">
+                <join-column name="usua_id" nullable="false" referenced-column-name="usua_id"/>
+            </many-to-one>
+          
+            <many-to-many name="comentarios">
+                <join-table name="come_come" >
+                    <join-column name="comentario_come_id" nullable="false"/>
+                    <inverse-join-column name="come_id"/>
+                </join-table>
+            </many-to-many>
+          
+            <basic name="texto">
+                <column name="text" nullable="false"/>                    
+            </basic>
+            
+            <basic name="aprovado">
+                <column name="apro" nullable="false"/>                    
+            </basic>
+                            
+            <many-to-one name="criadoPor">
+                <join-column name="cria_por_id"/>                    
+            </many-to-one>
+            
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <many-to-one name="alteradoPor">
+                <join-column name="alte_por_id" />                    
+            </many-to-one> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>           
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

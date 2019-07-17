@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+     
+         
+    <entity name="MovimentoPagamento" class="net.cartola.model.MovimentoPagamento" access="PROPERTY" metadata-complete="true">
+        
+        <table name="movi_paga"/>
+           
+              
+        <attributes>            
+          
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_movi_paga_id"/>
+                <column name="movi_paga_id"/>
+            </id>                                  
+                                            
+            <many-to-one name="formaPagamento" field="formaPagamento" target-entity="net.cartola.model.MovimentoFormaPagamento" fetch ="EAGER">
+                <join-column name="form_paga_id"  nullable="false"/>
+            </many-to-one>
+                        
+            <basic name="movimentoPagamentoSituacao">
+                <enumerated>STRING</enumerated>
+                <column name="movi_paga_situ" nullable="false"/>                    
+            </basic>
+            
+            <basic name="codigoBarras">
+                <column name="codi_barr"/>                    
+            </basic>
+            
+            <basic name="parcela">
+                <column name="parc" nullable="false"/>                    
+            </basic>            
+            
+            <basic name="vencimento">
+                <temporal>DATE</temporal>
+                <column name="venc" nullable="false"/>                    
+            </basic>
+            
+            <transient name="vencimentoString"/>
+            
+            
+            <basic name="pagamento">
+                <temporal>DATE</temporal>
+                <column name="paga" nullable="false"/>                    
+            </basic>
+            
+            
+            <transient name="pagamentoString"/>
+            
+            
+            <basic name="valorCobrado">
+                <column name="valo" nullable="false" precision="13" scale="6"/>
+            </basic> 
+            
+            <basic name="valorTroco">
+                <column name="valo_troc" nullable="false" precision="13" scale="6"/>
+            </basic>
+            
+            <basic name="desconto">
+                <column name="dsct" nullable="false" precision="13" scale="6"/>
+            </basic>
+            
+            <basic name="juros">
+                <column name="juro" nullable="false" precision="13" scale="6"/>
+            </basic>
+            
+            <basic name="multa">
+                <column name="mora_mult" nullable="false" precision="13" scale="6"/>
+            </basic>
+                        
+            <basic name="valorPago">
+                <column name="valo_pago" nullable="false" precision="13" scale="6"/>
+            </basic>
+            
+            <one-to-many name="movimentoPagamentoBaixas">
+                <cascade-persist/>
+            </one-to-many>
+                        
+            <basic name="periodo">
+                <temporal>DATE</temporal>
+                <column name="peri" nullable="false"/>                    
+            </basic>
+              
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>

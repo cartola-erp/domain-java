@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+     
+    <named-query name="MovimentoPagamentoBaixa.findAll">
+        <query>
+            SELECT f FROM MovimentoPagamentoBaixa f
+        </query>
+    </named-query>    
+    
+    <entity name="MovimentoPagamentoBaixa" class="net.cartola.model.MovimentoPagamentoBaixa" access="PROPERTY" metadata-complete="true">
+        
+        <table name="movi_paga_baix"/>
+           
+              
+        <attributes>            
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="seq_movi_paga_baix_id"/>
+                <column name="movi_paga_baix_id"/>
+            </id>  
+                        
+            <basic name="dataBaixa">
+                <temporal>TIMESTAMP</temporal>
+                <column name="data_baix"/>                    
+            </basic> 
+            
+            <basic name="saldoPagamento">
+                <column name="sald_paga" nullable="false" precision="13" scale="6"/>                    
+            </basic>
+            
+            <basic name="desconto">
+                <column name="dsct"  precision="13" scale="6"/>                    
+            </basic>
+            
+            <basic name="juros">
+                <column name="juro"  precision="13" scale="6"/>                    
+            </basic>
+            
+            <basic name="multa">
+                <column name="mult"  precision="13" scale="6"/>                    
+            </basic>
+            
+            <basic name="valorPago">
+                <column name="valo_pago"  precision="12" scale="6" nullable="false"/>
+            </basic>                      
+                        
+            <basic name="criadoPor">
+                <column name="cria_por_id"/>                    
+            </basic>
+                
+            <basic name="criadoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="cria_em"/>                    
+            </basic>                              
+                
+            <basic name="alteradoPor">
+                <column name="alte_por_id"/>                    
+            </basic> 
+                
+            <basic name="alteradoEm">
+                <temporal>TIMESTAMP</temporal>
+                <column name="alte_em"/>                    
+            </basic>
+                             
+        </attributes>
+    </entity>
+    
+</entity-mappings>
